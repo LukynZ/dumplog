@@ -1,4 +1,4 @@
-// bold colored output
+// bold and colored output
 string colb(int val) { 
   string color;
   switch (val) {
