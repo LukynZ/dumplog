@@ -1,0 +1,30 @@
+// bold colored output
+string colb(int val) { 
+  string color;
+  switch (val) {
+    case 1:
+      color = "\033[1;31m";
+      break;
+    case 2:
+      color = "\033[1;32m";
+      break;
+    case 3:
+      color = "\033[1;33m";
+      break;
+    case 4:
+      color = "\033[1;34m";
+      break;
+    case 6:
+      color = "\033[1;36m";
+      break;
+    case 7:
+      color = "\033[1;37m";
+  }
+  
+  return color;
+}
+
+// reset font color and style
+string fres() {
+  return  "\033[0m";
+}
