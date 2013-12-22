@@ -54,7 +54,7 @@ int main(int argc, char * argv[]) {
   }
 
   else {
-   cout << "Unable to open log file or file does not exist.\n";
+   cout << "Unable to open log file or log file does not exist.\n";
   }
 
   myfile.close();
