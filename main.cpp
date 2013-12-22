@@ -10,7 +10,7 @@ int main(int argc, char * argv[]) {
   
   if (argc < 2) {
     cout << "Wrong command parameters.\n";
-    cout << "Right format is test <log file name> <optional word filter>\n";
+    cout << "Right format is: dumplog <log file name> <optional word filter>\n";
     exit(1);
   }
   
