@@ -11,7 +11,7 @@ examples:
 
 dumplog dmesg eth0
 
-dumplog Xorg.0.log nouveau drm VDPAU
+dumplog x nouveau drm VDPAU // <= dumplog -s x Xorg.0.log
 
 
 // list; -ls = list adjusted shortcuts; -lp = show adjusted path (default /var/log/)
