@@ -3,58 +3,11 @@
 #include <string>
 
 using namespace std;
-
-#include "./fonts.h"
-
-
-fstream pfile;
 ifstream myfile;
-string line;
+string filename;
 
-void create_logpath(string parm) {
-  int i = system("mkdir -p /root/.dumplog");                // shell call to create directory
-  if (i) {
-    cout << "The path can't be created!\n";
-    exit(1);
-  }
-  pfile.open("/root/.dumplog/path", ios::out);              // create file with log path
-  if (pfile.is_open()) {
-    if (parm.find_last_of("/") == (parm.length()-1)) {      // check if path ends with /
-      pfile << parm;                                          
-    }
-    else {
-      pfile << parm << "/";
-    }
-    pfile.close();
-  }
-}
-
-void check_logpath(string parm) {
-  
-  if (parm.find("../") != string::npos) {                   // checking for illegal path outside of log directory
-    cout << "Illegal source.\n";
-    exit(1);
-  }
-  
-  string path = "/root/.dumplog/path";
-  pfile.open(path);
-  if (pfile.is_open()) {                                    // checking if log path file exists and if it's open
-    getline(pfile, line);
-    myfile.open(line+parm);
-  }
-  else {
-    cout << "Path to log directory has not beed specified.\nPlease specify it by: dumplog -p <path>\n(for example: dumplog -p \"/var/log\")\n";
-    exit(1);
-  }
-  
-}
-
-string replace(string val,  string line) {
-  line.replace(line.find(val), val.length(), colb(7)+val+fres());
-  return line;
-}
-
-// -------------------------------------------------- M A I N -----------------------------------------------------------------
+#include "./fonts.cpp"
+#include "./functions.cpp"
 
 int main(int argc, char * argv[]) {
   
@@ -65,18 +18,52 @@ int main(int argc, char * argv[]) {
   }
   
   string arg = argv[1];
+  
   if (arg == "-p") {                                        // if user want to set path
-    create_logpath(argv[2]);
-    cout <<  "Path created.\n";
-    exit(1);
+    if (argv[2]) {
+      set_logpath(argv[2]);
+    }
+    else {
+      cout << "Wrong path definition.\n";
+      exit(1);
+    }
   }  
-  else {
-    check_logpath(argv[1]);
+  
+  if (arg == "-s") {                                        // if user want to set shortcut
+    if (argv[2] && argv[3]) {
+      set_shortcut(argv[2], argv[3]);
+    }
+    else {
+      cout << "Wrong shortcut definition.\n";
+      exit(1);
+    }
+  }
+
+  if (arg == "-lp") {                                       // if user want to show path
+    list("path");
   }
   
+  if (arg == "-ls") {                                       // if user want to show shortcuts
+    list("shortcuts");
+  }
+  
+  string shortcut = read_shortcuts(argv[1]);
+  if (shortcut != "epic_fail") {
+    string path = read_logpath(shortcut);
+    myfile.open(path+shortcut);
+    filename = shortcut;
+  }
+  else {
+    string path = read_logpath(argv[1]);
+    myfile.open(path+argv[1]);
+    filename = argv[1];
+  }
+  
+  
   if (myfile.is_open()) {                                   // check if log file exists and if it's open
+    string line;
     
-    cout << colb(1) << "\n<<<---------- " << argv[1] << " ---------->>>" << fres() << "\n";
+    cout << colb(1) << "\n<<<---------- " << filename << " ---------->>>" << fres() << "\n";
     
     if (argc == 2) {                                        // no filter parametes => dump entire log file
       while (getline(myfile,line)) {
