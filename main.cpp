@@ -6,6 +6,11 @@ using namespace std;
 
 #include "./fonts.h"
 
+string replace(string val,  string line) {
+  line.replace(line.find(val), val.length(), colb(7)+val+fres());
+  return line;
+}
+
 int main(int argc, char * argv[]) {
   
   if (argc < 2) {
@@ -43,7 +48,7 @@ int main(int argc, char * argv[]) {
       while (getline(myfile,line)) {
         for (int i = 2; i < argc; i++) {
 	  if (line.find(argv[i]) != string::npos) {
-	    dump[i-2] += line + "\n";
+	    dump[i-2] += replace(argv[i], line)+"\n";
 	  }
 	}
       }
