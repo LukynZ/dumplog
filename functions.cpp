@@ -12,7 +12,7 @@ void mkdir() {
 
 string read_shortcuts(string sc) {
   string line;
-  ifstream pfile(mpath+"shortcuts");
+  ifstream pfile(mpath + "shortcuts");
   if (!pfile.is_open()) {
     return "epic_fail";
   }
@@ -32,7 +32,7 @@ string read_shortcuts(string sc) {
 
 void list(string file) {
   string line;
-  ifstream pfile(mpath+file);
+  ifstream pfile(mpath + file);
   while (getline(pfile, line)) {
     cout << line << "\n";
   }
@@ -41,15 +41,14 @@ void list(string file) {
 
 void set_logpath(string path) {
   mkdir();
-  ofstream pfile(mpath+"path");                                 // create file with log path
+  ofstream pfile(mpath + "path");                                 // create file with log path
   if (!pfile.is_open()) {
     cout << "Path hasn't been added. Unable to open/create file.\n";
     exit(1);
   }
   if (path.find_last_of("/") == (path.length()-1)) {      // check if path ends with /
     pfile << path;                                          
-  }
-  else {
+  } else {
     pfile << path << "/\n";
   }
   pfile.close();
@@ -63,17 +62,16 @@ string read_logpath(string path) {
     cout << "Illegal source.\n";
     exit(1);
   }
-  string conf_path = mpath+"path";
+  string conf_path = mpath + "path";
   ifstream pfile(conf_path);
-  if (!pfile.is_open()) {                                  // checking if log path file exists and if it's open
+  if (!pfile.is_open()) {
     cout << "Path file does not exists. Using defalt path to log files.\n\n";
     return dpath;
   }
   getline(pfile, line);
   if (!line.empty()) {
     return line;
-  }
-  else {
+  } else {
     cout << "Path file is created but empty. Using defalt path to log files.\n\n";
     return dpath;
   }
@@ -81,7 +79,7 @@ string read_logpath(string path) {
 
 void set_shortcut(string shortc, string file) {
   mkdir();
-  ofstream pfile(mpath+"shortcuts", ios::app);
+  ofstream pfile(mpath + "shortcuts", ios::app);
   if (!pfile.is_open()) {
     cout << "Shortcut hasn't been added. Unable to open/create shortcut file.\n";
     exit(1);

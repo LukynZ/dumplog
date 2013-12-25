@@ -20,7 +20,6 @@ string colb(int val) {
     case 7:
       color = "\033[1;37m";                                 // white
   }
-  
   return color;
 }
 
