@@ -103,7 +103,6 @@ public:
   }
   string check_shortcut(string str) {
     string line;
-    myfile.seekg(0, ios::beg);
     while (getline(myfile, line)) {
       int spl = line.find(",");
       if (str == line.substr(0, spl) && !line.empty()) {
@@ -124,11 +123,12 @@ public:
 };
 
 void readline(int& argc, char * argv[]) {
-  settings shc ("shortcuts");
   if (argc == 2 && strcmp(argv[1], "-m")) {
+    settings shc ("shortcuts");
     logfile log (shc.check_shortcut(argv[1]));
     log.dumpall();
   } else if (argc > 2 && strcmp(argv[1],"-m")) {
+    settings shc ("shortcuts");
     logfile log (shc.check_shortcut(argv[1]));
     log.dumpsel(argc, argv, 2);
   } else {
@@ -140,6 +140,7 @@ void readline(int& argc, char * argv[]) {
       }
     }
     for (int i = 2; i < y; i++) {
+      settings shc ("shortcuts");
       logfile log (shc.check_shortcut(argv[i]));
       log.dumpsel(argc, argv, y+1);
     }
