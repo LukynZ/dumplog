@@ -52,6 +52,6 @@ dumplog
 
 > dumplog -sp /var/mylogs/
 
-config files are saved to /root/.dumplog for now
+config files are saved to /root/.dumplog/ for now
 
 ![alt tag](http://www.volny.cz/suchoi/dumplog.png)
