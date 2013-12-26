@@ -3,7 +3,7 @@ dumplog
 
 ####Quick log viewer with multiple filter parameters and settings.
 
-**Usage:**
+**Usage: single log file**
 
 > dumplog { log_file | shortcut } [ filter pamameters ]
 
@@ -13,10 +13,20 @@ dumplog
 
 > dumplog x nouveau drm VDPAU *// <= dumplog -s x Xorg.0.log*
 
+**Usage: multiple log files**
 
-**list: -ls = list adjusted shortcuts; -lp = show adjusted path (default /var/log/)**
+> dumplog -m { log_files | shortcuts } -f [ filter pamameters ] *// m - multiple, f - filters*
 
-> dumplog { -ls | -lp }
+*examples:*
+
+> dumplog -f dmesg Xorg.0.log -f nouveau dri
+
+> dumplog -m x d -f nouveau drm VDPAU *// <= dumplog -ss x Xorg.0.log, dumplog -ss d dmesg*
+
+
+**list:**
+
+> dumplog { -ls | -lp } *// ls = list shortcuts; lp = list path (default /var/log/)*
 
 *example:*
 
@@ -25,21 +35,21 @@ dumplog
 
 **set shortcut for log file**
 
-> dumplog -s shortcut log_file
+> dumplog -ss shortcut log_file *// ss - set shortcut*
 
 *examples:*
 
-> dumplog -s d dmesg // => dumplog d eth0
+> dumplog -ss d dmesg *// => dumplog d eth0*
 
-> dumplog -s c cups/access_log *// => dumplog c 12/Dec/2013*
+> dumplog -ss c cups/access_log *// => dumplog c 12/Dec/2013*
 
 
 **set path to logs in your system**
 
-> dumplog -p path_to_logs
+> dumplog -sp path_to_logs *// sp - set path*
 
 *example:*
 
-> dumplog -p /var/mylogs/
+> dumplog -sp /var/mylogs/
 
 ![alt tag](http://www.volny.cz/suchoi/dumplog.png)
