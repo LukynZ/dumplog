@@ -43,7 +43,7 @@ public:
   }
   void dumpsel(int argc, char * argv[], int y) {
     cout << colb(1) << "\n<<<---------- " << file << " ---------->>>" << fres() << "\n";
-    string dump[argc-2];
+    string dump[argc-y];
     for (int i = y; i < argc; i++) {
       dump[i-y] += colb(2) + "\n " + argv[i] + fres() + "\n\n";  // filter paramets
     }
