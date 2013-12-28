@@ -54,7 +54,7 @@ public:
         }
       }
     }
-    for (int i = 0; i < argc-2; i++) {                    // print out content
+    for (int i = 0; i < argc-y; i++) {                    // print out content
       cout << dump[i];
     }
   }
