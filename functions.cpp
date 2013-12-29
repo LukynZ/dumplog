@@ -32,3 +32,13 @@ void readline_m(int& argc, char * argv[]) {
     }
   }
 }
+
+void dump_cmd() {
+  cout << "Wrong command parameters.\n"
+  "The right format is:\n\n"
+  "dumplog { log_file | shortcut } [ filter pamameter.. ]\n\n"
+  "dumplog -m { log_file | shortcut } [logfile2.. | shortcut2..] [-f [ filter pamameter.. ]]\n\n"
+  "dumplog { -ls | -lp }\n\n"
+  "dumplog -ss shortcut log_file\n\n"
+  "dumplog -sp path_to_logs\n\n";
+}
