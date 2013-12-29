@@ -1,3 +1,6 @@
+#ifndef _class_h
+#define _class_h
+
 class logfile {
   
   ifstream myfile;
@@ -146,3 +149,5 @@ public:
     }
   }
 };
+
+#endif

@@ -6,9 +6,9 @@ using namespace std;
 string filename;
 int hlpr = 0;
 
-#include "./fstyle.cpp"
-#include "./class.cpp"
-#include "./functions.cpp"
+#include "./fstyle.h"
+#include "./class.h"
+#include "./functions.h"
 
 int main(int argc, char * argv[]) {
 
