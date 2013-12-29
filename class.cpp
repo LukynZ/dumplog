@@ -67,11 +67,11 @@ public:
 class settings {
   
   fstream myfile;
-  string spath = "/root/.dumplog/";
-  string file;
   
 public:
   settings(string path) {
+    string spath = "/root/.dumplog/";
+    
     int i = system("mkdir -p /root/.dumplog");
     if (i) {
       cout << "Unable to read/create settings.\nCheck your rights!\n";
@@ -92,25 +92,50 @@ public:
     if (path.find_last_of("/") == (path.length()-1)) {      // check if path ends with /
       myfile << path;                                          
     } else {
-      myfile << path << "/\n";
+      myfile << path << "/";
     }
+    rename("/root/.dumplog/path_", "/root/.dumplog/path");
     cout << "Path has been created.\n";
   }
   void set_shortcut(string shortc, string file) {
-    myfile.seekp(0, ios::end);
-    myfile << shortc << "," << file << "\n";
-    cout << "Shortcut has been set.\n";
-  }
-  string check_shortcut(string str) {
     string line;
+    if (check_shortcut(shortc, hlpr) == shortc) {
+      myfile.clear();
+      myfile.seekp(0, ios::end);
+      myfile << shortc << "," << file << "\n";
+      cout << "Shortcut has been set.\n";
+    } else {
+      char ans[0];
+      cout << "This shortcut already exists. Overwrite? (y/n)\n";
+      cin >> ans;
+      if (ans[0] == 'y') {
+	ifstream infile("/root/.dumplog/shortcuts");
+	ofstream outfile("/root/.dumplog/shortcuts_", ios::out);
+	int x = 1;
+	while (getline(infile, line)) {
+          if (x != hlpr) {
+	    outfile << line << "\n";
+          } else {
+	    outfile << shortc << "," << file << "\n";
+          }
+          x++;
+        }
+        infile.close(); outfile.close();
+        rename("/root/.dumplog/shortcuts_", "/root/.dumplog/shortcuts");
+      }
+    }
+  }
+  string check_shortcut(string str, int& i) {
+    string line;
+    string file = str;
+    i = 1;
     while (getline(myfile, line)) {
       int spl = line.find(",");
       if (str == line.substr(0, spl) && !line.empty()) {
 	file = line.substr(spl+1, (line.length()-spl));
 	break;
-      } else {
-	file = str;
       }
+      i++;
     }
     return file;
   }
@@ -121,28 +146,3 @@ public:
     }
   }
 };
-
-void readline(int& argc, char * argv[]) {
-  if (argc == 2 && strcmp(argv[1], "-m")) {
-    settings shc ("shortcuts");
-    logfile log (shc.check_shortcut(argv[1]));
-    log.dumpall();
-  } else if (argc > 2 && strcmp(argv[1],"-m")) {
-    settings shc ("shortcuts");
-    logfile log (shc.check_shortcut(argv[1]));
-    log.dumpsel(argc, argv, 2);
-  } else {
-    int y;
-    for (int i = 2; i < argc; i++) {
-      if (!strcmp(argv[i], "-f")) {
-        y = i;
-	break;
-      }
-    }
-    for (int i = 2; i < y; i++) {
-      settings shc ("shortcuts");
-      logfile log (shc.check_shortcut(argv[i]));
-      log.dumpsel(argc, argv, y+1);
-    }
-  }
-}
