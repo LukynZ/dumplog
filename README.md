@@ -5,7 +5,7 @@ dumplog
 
 **Usage: single log file**
 
-> dumplog { log_file | shortcut } [ filter pamameters ]
+> dumplog { log_file | shortcut } [ filter pamameter.. ]
 
 *examples:*
 
@@ -15,7 +15,7 @@ dumplog
 
 **Usage: multiple log files**
 
-> dumplog -m { log_files | shortcuts } -f [ filter pamameters ] *// m - multiple, f - filters*
+> dumplog -m { log_file | shortcut } [ log file2.. | shortcut2.. ] [ -f [ filter pamameters ] ] *// m - multiple, f - filters*
 
 *examples:*
 
