@@ -3,11 +3,11 @@
 #include <cstring>
 
 using namespace std;
-string filename;
 int hlpr = 0;
 
 #include "./fstyle.h"
-#include "./class.h"
+#include "./settings.h"
+#include "./logfile.h"
 #include "./functions.h"
 
 int main(int argc, char * argv[]) {

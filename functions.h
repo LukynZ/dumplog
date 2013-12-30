@@ -43,7 +43,7 @@ void dump_cmd() {
   "dumplog -m { log_file | shortcut } [logfile2.. | shortcut2..] [ -f [ filter pamameter.. ] ]\n\n"
   "dumplog { -ls | -lp }\n\n"
   "dumplog -ss shortcut log_file\n\n"
-  "dumplog -sp path_to_logs\n\n";
+  "dumplog -sp path_to_logs\n" << endl;
 }
 
 #endif
