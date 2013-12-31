@@ -5,7 +5,6 @@
 using namespace std;
 int hlpr = 0;
 
-#include "./fstyle.h"
 #include "./settings.h"
 #include "./logfile.h"
 #include "./functions.h"

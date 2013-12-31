@@ -4,6 +4,7 @@
 class settings {
   
   fstream myfile;
+  string line;
 
 public:
     settings(string path);
@@ -45,7 +46,6 @@ void settings::set_logpath ( string path ) {
 }
 
 void settings::set_shortcut ( string shortc, string file ) {
-  string line;
   if (check_shortcut(shortc, hlpr) == shortc) {
     myfile.clear();
     myfile.seekp(0, ios::end);
@@ -74,7 +74,6 @@ void settings::set_shortcut ( string shortc, string file ) {
 }
 
 string settings::check_shortcut ( string str, int& i ) {
-  string line;
   string file = str;
   i = 1;
   while (getline(myfile, line)) {
@@ -89,7 +88,6 @@ string settings::check_shortcut ( string str, int& i ) {
 }
 
 void settings::list() {
-  string line;
   while (getline(myfile, line)) {
     cout << line << "\n";
   }

@@ -1,13 +1,15 @@
 #ifndef _logfile_h
 #define _logfile_h
 
+#include "./fstyle.h"
+
 class logfile {
   
   ifstream myfile;
   string line;
   string file;
 
-  string replace(string val, string lines);
+  string replace(string val);
 
 public:
     logfile (string filename);
@@ -65,7 +67,7 @@ void logfile::dumpsel(int argc, char * argv[], int y) {
   while (getline(myfile,line)) {
     for (int i = y; i < argc; i++) {                    // filtered lines for every parameter
       if (line.find(argv[i]) != string::npos) {
-        dump[i-y] += replace(argv[i], line) + "\n";
+        dump[i-y] += replace(argv[i]) + "\n";
       }
     }
   }
@@ -74,9 +76,9 @@ void logfile::dumpsel(int argc, char * argv[], int y) {
   }
 }
 
-string logfile::replace(string val, string lines) {
-  lines.replace(line.find(val), val.length(), colb(7)+val+fres());
-  return lines;
+string logfile::replace(string val) {
+  line.replace(line.find(val), val.length(), colb(7)+val+fres());
+  return line;
 }
 
 #endif
