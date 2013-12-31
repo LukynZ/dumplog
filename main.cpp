@@ -1,9 +1,10 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
+#include <climits>
 
 using namespace std;
-int hlpr = 0;
+short hlpr = 0;
 
 #include "./settings.h"
 #include "./logfile.h"
@@ -11,7 +12,7 @@ int hlpr = 0;
 
 int main(int argc, char * argv[]) {
 
-  if (argc < 2) {                                           // no parameters?
+  if (argc < 2) { // no parameters?
     dump_cmd();
     exit(1);
   }
@@ -35,5 +36,6 @@ int main(int argc, char * argv[]) {
   } else {
     dump_cmd();
   }
+
   return 0;
 }

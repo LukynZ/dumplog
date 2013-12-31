@@ -1,7 +1,7 @@
 #ifndef _functions_h
 #define _functions_h
 
-void readline(int& argc, char * argv[]) {
+void readline (int& argc, char * argv[]) {
   if (argc == 2) {
     settings shc ("shortcuts");
     logfile log (shc.check_shortcut(argv[1], hlpr));
@@ -13,22 +13,22 @@ void readline(int& argc, char * argv[]) {
   } 
 }
 
-void readline_m(int& argc, char * argv[]) {
-  int y;
-  for (int i = 2; i < argc; i++) {
+void readline_m (int& argc, char * argv[]) {
+  short y;
+  for (short i = 2; i < argc; i++) {
     if (!strcmp(argv[i], "-f")) {
       y = i;
       break;
     }
   }
   if (y && y != argc-1) {
-    for (int i = 2; i < y; i++) {
+    for (short i = 2; i < y; i++) {
       settings shc ("shortcuts");
       logfile log (shc.check_shortcut(argv[i], hlpr));
       log.dumpsel(argc, argv, y+1);
     }
   } else {
-    for (int i = 2; i < argc; i++) {
+    for (short i = 2; i < argc; i++) {
       settings shc ("shortcuts");
       logfile log (shc.check_shortcut(argv[i], hlpr));
       log.dumpall();
@@ -36,7 +36,7 @@ void readline_m(int& argc, char * argv[]) {
   }
 }
 
-void dump_cmd() {
+void dump_cmd () {
   cout << "Wrong command parameters.\n"
   "The right format is:\n\n"
   "dumplog { log_file | shortcut } [ filter pamameter.. ]\n\n"

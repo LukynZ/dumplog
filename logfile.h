@@ -9,13 +9,13 @@ class logfile {
   string line;
   string file;
 
-  string replace(string val);
+  string highlight (string val);
 
 public:
     logfile (string filename);
-    ~logfile();
+    ~logfile ();
     void dumpall();
-    void dumpsel(int argc, char * argv[], int y);
+    void dumpsel (int& argc, char * argv[], short y);
     
 };
 
@@ -46,37 +46,37 @@ logfile::logfile (string filename) {
   }
 }
 
-logfile::~logfile() {
+logfile::~logfile () {
   myfile.close();
   cout << colb(1) << "\nFinished\n" << fres() << endl;
 }
 
-void logfile::dumpall() {
+void logfile::dumpall () {
   cout << colb(1) << "\n<<<---------- " << file << " ---------->>>" << fres() << endl;;
   while (getline(myfile,line)) {
     cout << line << "\n";
   }
 }
 
-void logfile::dumpsel(int argc, char * argv[], int y) {
+void logfile::dumpsel (int& argc, char * argv[], short y) {
   cout << colb(1) << "\n<<<---------- " << file << " ---------->>>" << fres() << endl;
   string dump[argc-y];
-  for (int i = y; i < argc; i++) {
+  for (short i = y; i < argc; i++) {
     dump[i-y] += colb(2) + "\n " + argv[i] + fres() + "\n\n";  // filter paramets
   }
   while (getline(myfile,line)) {
-    for (int i = y; i < argc; i++) {                    // filtered lines for every parameter
+    for (short i = y; i < argc; i++) {                    // filtered lines for every parameter
       if (line.find(argv[i]) != string::npos) {
-        dump[i-y] += replace(argv[i]) + "\n";
+        dump[i-y] += highlight(argv[i]) + "\n";
       }
     }
   }
-  for (int i = 0; i < argc-y; i++) {                    // print out content
+  for (short i = 0; i < argc-y; i++) {                    // print out content
     cout << dump[i];
   }
 }
 
-string logfile::replace(string val) {
+string logfile::highlight (string val) {
   line.replace(line.find(val), val.length(), colb(7)+val+fres());
   return line;
 }
