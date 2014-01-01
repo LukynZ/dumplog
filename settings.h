@@ -11,13 +11,13 @@ public:
     ~settings ();
     void set_logpath (string path);
     void set_shortcut (string shortc, string file);
-    string check_shortcut (string str, short& i);
+    string check_shortcut (string str, unsigned short& i);
     void list ();
 };
 
 settings::settings (string path) {
-  string spath = "/root/.dumplog/";
-  short i = system("mkdir -p /root/.dumplog");
+  string spath {"/root/.dumplog/"};
+  int i {system("mkdir -p /root/.dumplog")};
   if (i) {
     cout << "Unable to read/create settings.\nCheck your rights!" << endl;
     exit(1);
@@ -58,7 +58,7 @@ void settings::set_shortcut (string shortc, string file) {
     if (ans[0] == 'y') {
     ifstream infile("/root/.dumplog/shortcuts");
     ofstream outfile("/root/.dumplog/shortcuts_", ios::out);
-    short x = 1;
+    unsigned short x {1};
       while (getline(infile, line)) {
         if (x != hlpr) {
 	  outfile << line << endl;
@@ -68,18 +68,18 @@ void settings::set_shortcut (string shortc, string file) {
         x++;
       }
       infile.close(); outfile.close();
-      rename("/root/.dumplog/shortcuts_", "/root/.dumplog/shortcuts");
+      rename ("/root/.dumplog/shortcuts_", "/root/.dumplog/shortcuts");
     }
   }
 }
 
-string settings::check_shortcut (string str, short& i) {
-  string file = str;
+string settings::check_shortcut (string str, unsigned short& i) {
+  string file {str};
   i = 1;
   while (getline(myfile, line)) {
-    short spl = line.find(",");
-    if (str == line.substr(0, spl) && !line.empty()) {
-      file = line.substr(spl+1, (line.length()-spl));
+    unsigned long split {line.find(",")};
+    if (str == line.substr(0, split) && !line.empty()) {
+      file = line.substr(split+1, (line.length()-split));
       break;
     }
     i++;

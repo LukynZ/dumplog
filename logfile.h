@@ -15,13 +15,13 @@ public:
     logfile (string filename);
     ~logfile ();
     void dumpall();
-    void dumpsel (int& argc, char * argv[], short y);
+    void dumpsel (int& argc, char * argv[], unsigned short y);
     
 };
 
 logfile::logfile (string filename) {
-  string spath = "/root/.dumplog/path";
-  string dpath = "/var/log/";
+  string spath {"/root/.dumplog/path"};
+  string dpath {"/var/log/"};
   string path;
   file = filename;
 
@@ -58,20 +58,20 @@ void logfile::dumpall () {
   }
 }
 
-void logfile::dumpsel (int& argc, char * argv[], short y) {
+void logfile::dumpsel (int& argc, char * argv[], unsigned short y) {
   cout << colb(1) << "\n<<<---------- " << file << " ---------->>>" << fres() << endl;
   string dump[argc-y];
-  for (short i = y; i < argc; i++) {
+  for (unsigned short i {y}; i < argc; i++) {
     dump[i-y] += colb(2) + "\n " + argv[i] + fres() + "\n\n";  // filter paramets
   }
   while (getline(myfile,line)) {
-    for (short i = y; i < argc; i++) {                    // filtered lines for every parameter
+    for (unsigned short i {y}; i < argc; i++) {                    // filtered lines for every parameter
       if (line.find(argv[i]) != string::npos) {
         dump[i-y] += highlight(argv[i]) + "\n";
       }
     }
   }
-  for (short i = 0; i < argc-y; i++) {                    // print out content
+  for (unsigned short i {0}; i < argc-y; i++) {                    // print out content
     cout << dump[i];
   }
 }

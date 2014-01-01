@@ -4,7 +4,7 @@
 #include <climits>
 
 using namespace std;
-short hlpr = 0;
+unsigned short hlpr {0};
 
 #include "./settings.h"
 #include "./logfile.h"

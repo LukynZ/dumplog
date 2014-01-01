@@ -14,21 +14,21 @@ void readline (int& argc, char * argv[]) {
 }
 
 void readline_m (int& argc, char * argv[]) {
-  short y;
-  for (short i = 2; i < argc; i++) {
+  unsigned short y;
+  for (unsigned short i {2}; i < argc; i++) {
     if (!strcmp(argv[i], "-f")) {
       y = i;
       break;
     }
   }
   if (y && y != argc-1) {
-    for (short i = 2; i < y; i++) {
+    for (unsigned short i {2}; i < y; i++) {
       settings shc ("shortcuts");
       logfile log (shc.check_shortcut(argv[i], hlpr));
       log.dumpsel(argc, argv, y+1);
     }
   } else {
-    for (short i = 2; i < argc; i++) {
+    for (unsigned short i {2}; i < argc; i++) {
       settings shc ("shortcuts");
       logfile log (shc.check_shortcut(argv[i], hlpr));
       log.dumpall();
