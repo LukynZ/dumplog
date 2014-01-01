@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
-#include <climits>
 
 using namespace std;
 unsigned short hlpr {0};
