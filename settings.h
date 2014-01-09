@@ -20,14 +20,14 @@ settings::settings (string path) {
   int i {system("mkdir -p /root/.dumplog")};
   if (i) {
     cout << "Unable to read/create settings.\nCheck your rights!" << endl;
-    exit(1);
+    exit(0);
   }
   myfile.open(spath+path, ios::out | ios::app);
   myfile.close();
   myfile.open(spath + path);
   if (!myfile.is_open()) {
     cout << "Settings failed. Unable to open/create file." << endl;
-    exit(1);
+    exit(0);
   }
 }
 
@@ -52,23 +52,26 @@ void settings::set_shortcut (string shortc, string file) {
     myfile << shortc << "," << file << endl;
     cout << "Shortcut has been set.\n";
   } else {
-    char ans[0];
-    cout << "This shortcut already exists. Overwrite? (y/n)" << endl;
+    char ans;
+    cout << "This shortcut already exists. Overwrite? (y/n): ";
     cin >> ans;
-    if (ans[0] == 'y') {
-    ifstream infile("/root/.dumplog/shortcuts");
-    ofstream outfile("/root/.dumplog/shortcuts_", ios::out);
-    unsigned short x {1};
+    if (ans == 'y') {
+      ifstream infile("/root/.dumplog/shortcuts");
+      ofstream outfile("/root/.dumplog/shortcuts_", ios::out);
+      unsigned short x {1};
       while (getline(infile, line)) {
         if (x != hlpr) {
 	  outfile << line << endl;
         } else {
-	  outfile << shortc << "," << file << endl;
+          outfile << shortc << "," << file << endl;
         }
         x++;
       }
       infile.close(); outfile.close();
       rename ("/root/.dumplog/shortcuts_", "/root/.dumplog/shortcuts");
+      cout << "Shortcut has been set." << endl;
+    } else {
+      cout << "Shortcut has not been set." << endl;
     }
   }
 }

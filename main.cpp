@@ -10,10 +10,10 @@ unsigned short hlpr {0};
 #include "./functions.h"
 
 int main(int argc, char * argv[]) {
-
+  
   if (argc < 2) { // no parameters?
     dump_cmd();
-    exit(1);
+    exit(0);
   }
   
   if (argv[1][0] != '-') {

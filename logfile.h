@@ -42,7 +42,7 @@ logfile::logfile (string filename) {
   myfile.open(path);
   if (!myfile.is_open()) {
     cout << "\nUnable to open log file or log file does not exist.\nCheck your path to log files." << endl;;
-    exit(1);
+    exit(0);
   }
 }
 
